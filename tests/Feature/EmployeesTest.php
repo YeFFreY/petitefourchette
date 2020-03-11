@@ -28,7 +28,9 @@ class EmployeesTest extends TestCase
 
         $this->assertDatabaseHas('employees', $attributes);
 
-        $this->get('/employees')->assertSee($attributes['email']);
+        $this->get('/employees')
+            ->assertSee($attributes['firstName'])
+            ->assertSee($attributes['lastName']);
     }
 
     /** @test */
@@ -51,7 +53,7 @@ class EmployeesTest extends TestCase
 
         $employee = factory('App\Employee')->create();
 
-        $this->get('/employees/' . $employee->id)
+        $this->get($employee->path())
             ->assertSee($employee->firstName)
             ->assertSee($employee->lastName)
             ->assertSee($employee->email);

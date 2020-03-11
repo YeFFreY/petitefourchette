@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $fillable = ['firstName', 'lastName', 'email', 'phoneNumber', 'address', 'startDate', 'endDate'];
+
+    public function path()
+    {
+        return "/employees/{$this->id}";
+    }
 }

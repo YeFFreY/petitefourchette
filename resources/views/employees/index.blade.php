@@ -6,10 +6,15 @@
   <title>Document</title>
 </head>
 <body>
+  <h1>Employees</h1>
   <ul>
-    @foreach ($employees as $employee)
-        <li>{{$employee->email}}</li>
-    @endforeach
+    @forelse ($employees as $employee)
+      <li>
+        <a href="{{ $employee->path() }}">{{$employee->firstName}} {{$employee->lastName}}</a>
+      </li>
+    @empty
+      <li>No employees yet.</li>
+    @endforelse
   </ul>
 </body>
 </html>
