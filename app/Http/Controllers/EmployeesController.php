@@ -14,9 +14,24 @@ class EmployeesController extends Controller
         return view('employees.index', compact('employees'));
     }
 
+    public function show(Employee $employee)
+    {
+        return view('employees.show', compact('employee'));
+    }
+
     public function store()
     {
-        Employee::create(request(['firstName', 'lastName', 'email', 'phoneNumber', 'address', 'startDate', 'endDate']));
+        $attributes = request()->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'required',
+            'phoneNumber' => '',
+            'address' => '',
+            'startDate' => 'required',
+            'endDate' => ''
+        ]);
+
+        Employee::create($attributes);
 
         return redirect('/employees');
     }

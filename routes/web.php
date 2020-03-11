@@ -23,5 +23,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/employees', 'EmployeesController@index');
-
+Route::get('/employees/{employee}', 'EmployeesController@show');
 Route::post('/employees', 'EmployeesController@store');

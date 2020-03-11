@@ -14,8 +14,6 @@ class EmployeesTest extends TestCase
     /** @test */
     public function a_user_can_create_an_employee()
     {
-        $this->withoutExceptionHandling();
-
         $attributes = [
             'firstName' => $this->faker->firstNameFemale,
             'lastName' => $this->faker->lastName,
@@ -31,5 +29,31 @@ class EmployeesTest extends TestCase
         $this->assertDatabaseHas('employees', $attributes);
 
         $this->get('/employees')->assertSee($attributes['email']);
+    }
+
+    /** @test */
+    public function an_employee_requires_a_firstname_lastname_email_and_startDate()
+    {
+        $attributes = factory('App\Employee')->raw([
+            'firstName' => '',
+            'lastName' => '',
+            'email' => '',
+            'startDate' => ''
+        ]);
+
+        $this->post('/employees', $attributes)->assertSessionHasErrors(['firstName', 'lastName', 'email', 'startDate']);
+    }
+
+    /** @test */
+    public function a_user_can_view_an_employee()
+    {
+        $this->withoutExceptionHandling();
+
+        $employee = factory('App\Employee')->create();
+
+        $this->get('/employees/' . $employee->id)
+            ->assertSee($employee->firstName)
+            ->assertSee($employee->lastName)
+            ->assertSee($employee->email);
     }
 }
