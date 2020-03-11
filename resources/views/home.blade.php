@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -13,8 +13,19 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <div class="row">
+                        <div class="col-md-6 d-flex flex-column">
+                            <a href="" class="btn btn-primary btn-lg m-2">Restaurant</a>
+                            <a href="" class="btn btn-primary btn-lg m-2">Traiteur</a>
+                            <a href="" class="btn btn-primary btn-lg m-2">Livraison</a>
+                            <a href="" class="btn btn-primary btn-lg m-2">Statistiques</a>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column">
+                            <a href="" class="btn btn-primary btn-lg m-2">Employes</a>
+                            <a href="" class="btn btn-primary btn-lg m-2">Parametres</a>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
