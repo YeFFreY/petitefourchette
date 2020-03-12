@@ -24,6 +24,11 @@ class EmployeesController extends Controller
         return view('employees.create');
     }
 
+    public function edit(Employee $employee)
+    {
+        return view('employees.edit', compact('employee'));
+    }
+
     public function store()
     {
         $attributes = request()->validate([
@@ -40,6 +45,6 @@ class EmployeesController extends Controller
 
         Employee::create($attributes);
 
-        return redirect('/employees');
+        return redirect('/employees')->with('success', 'Employee saved!');
     }
 }

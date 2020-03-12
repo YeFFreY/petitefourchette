@@ -21,7 +21,7 @@
                             <a href="" class="btn btn-primary btn-lg m-2">Statistiques</a>
                         </div>
                         <div class="col-md-6 d-flex flex-column">
-                            <a href="" class="btn btn-primary btn-lg m-2">Employes</a>
+                            <a href="/employees" class="btn btn-primary btn-lg m-2">Employes</a>
                             <a href="" class="btn btn-primary btn-lg m-2">Parametres</a>
                         </div>
                     </div>

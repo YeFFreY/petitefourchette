@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
   <h1>Register an employee</h1>
+
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+  </div><br />
+@endif
+
+
   <form method="POST" action="/employees">
     @csrf
-    
+
     <div class="form-group">
       <label for="first_name">First name</label>
       <input type="text" name="first_name" id="first_name" class="form-control">
@@ -39,6 +47,9 @@
       <input type="date" name="end_date" id="end_date" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/employees" class="btn btn-secondary">Cancel</a>
   </form>
-</body>
-</html>
+</div>
+
+@endsection
+  

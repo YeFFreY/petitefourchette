@@ -10882,3 +10882,7 @@ a.text-dark:focus {
   }
 }
 
+.form-control-plaintext {
+  font-weight: 700;
+}
+
