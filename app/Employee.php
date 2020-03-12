@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $fillable = ['firstName', 'lastName', 'email', 'phoneNumber', 'address', 'startDate', 'endDate'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'start_date', 'end_date', 'created_by'];
 
     public function path()
     {

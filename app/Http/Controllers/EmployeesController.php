@@ -22,14 +22,16 @@ class EmployeesController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'firstName' => 'required',
-            'lastName' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required',
-            'phoneNumber' => '',
+            'phone_number' => '',
             'address' => '',
-            'startDate' => 'required',
-            'endDate' => ''
+            'start_date' => 'required',
+            'end_date' => ''
         ]);
+
+        $attributes['created_by'] = auth()->id();
 
         Employee::create($attributes);
 

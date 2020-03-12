@@ -15,14 +15,17 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table ->string('firstName', 250);
-            $table->string('lastName', 250);
+            $table ->string('first_name', 250);
+            $table->string('last_name', 250);
             $table->string('email', 300);
-            $table->string('phoneNumber', 50)->nullable();
+            $table->string('phone_number', 50)->nullable();
             $table->text('address')->nullable();
-            $table->date('startDate');
-            $table->date('endDate')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->unsignedInteger('created_by');
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

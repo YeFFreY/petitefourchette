@@ -6,7 +6,7 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>{{ $employee->firstName }} {{ $employee-> lastName}}</h1>
+  <h1>{{ $employee->first_name }} {{ $employee->last_name }}</h1>
   <div>
     <p>{{ $employee->email }}</p>
   </div>

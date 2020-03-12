@@ -7,12 +7,15 @@ use Faker\Generator as Faker;
 
 $factory->define(Employee::class, function (Faker $faker) {
     return [
-        'firstName' => $faker->firstNameFemale,
-        'lastName' => $faker->lastName,
+        'first_name' => $faker->firstNameFemale,
+        'last_name' => $faker->lastName,
         'email' => $faker->email,
-        'phoneNumber' => $faker->e164PhoneNumber,
+        'phone_number' => $faker->e164PhoneNumber,
         'address' => $faker->address,
-        'startDate' => $faker->date(),
-        'endDate' => $faker->date(),
+        'start_date' => $faker->date(),
+        'end_date' => $faker->date(),
+        'created_by' => function() {
+            return factory('App\User')->create()->id;
+        }
     ];
 });

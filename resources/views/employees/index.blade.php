@@ -10,7 +10,7 @@
   <ul>
     @forelse ($employees as $employee)
       <li>
-        <a href="{{ $employee->path() }}">{{$employee->firstName}} {{$employee->lastName}}</a>
+        <a href="{{ $employee->path() }}">{{$employee->first_name}} {{$employee->last_name}}</a>
       </li>
     @empty
       <li>No employees yet.</li>

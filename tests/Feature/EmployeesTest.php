@@ -14,14 +14,16 @@ class EmployeesTest extends TestCase
     /** @test */
     public function a_user_can_create_an_employee()
     {
+        $this->actingAs(factory('App\User')->create());
+
         $attributes = [
-            'firstName' => $this->faker->firstNameFemale,
-            'lastName' => $this->faker->lastName,
+            'first_name' => $this->faker->firstNameFemale,
+            'last_name' => $this->faker->lastName,
             'email' => $this->faker->email,
-            'phoneNumber' => $this->faker->e164PhoneNumber,
+            'phone_number' => $this->faker->e164PhoneNumber,
             'address' => $this->faker->address,
-            'startDate' => $this->faker->date(),
-            'endDate' => $this->faker->date(),
+            'start_date' => $this->faker->date(),
+            'end_date' => $this->faker->date(),
         ];
 
         $this->post('/employees', $attributes)->assertRedirect('/employees');
@@ -29,28 +31,35 @@ class EmployeesTest extends TestCase
         $this->assertDatabaseHas('employees', $attributes);
 
         $this->get('/employees')
-            ->assertSee($attributes['firstName'])
-            ->assertSee($attributes['lastName']);
+            ->assertSee($attributes['first_name'])
+            ->assertSee($attributes['last_name']);
     }
 
     /** @test */
     public function an_employee_requires_a_firstname_lastname_email_and_startDate()
     {
+        $this->actingAs(factory('App\User')->create());
+
         $attributes = factory('App\Employee')->raw([
-            'firstName' => '',
-            'lastName' => '',
+            'first_name' => '',
+            'last_name' => '',
             'email' => '',
-            'startDate' => ''
+            'start_date' => ''
         ]);
 
-        $this->post('/employees', $attributes)->assertSessionHasErrors(['firstName', 'lastName', 'email', 'startDate']);
+        $this->post('/employees', $attributes)->assertSessionHasErrors(['first_name', 'last_name', 'email', 'start_date']);
+    }
+
+    /** @test */
+    public function only_authenticated_users_can_create_employees()
+    {
+        $attributes = factory('App\Employee')->raw();
+        $this->post('/employees', $attributes)->assertRedirect('login');
     }
 
     /** @test */
     public function a_user_can_view_an_employee()
     {
-        $this->withoutExceptionHandling();
-
         $employee = factory('App\Employee')->create();
 
         $this->get($employee->path())
