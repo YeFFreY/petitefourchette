@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class EmployeesTest extends TestCase
+class ManageEmployeesTest extends TestCase
 {
 
     use WithFaker, RefreshDatabase;
@@ -15,6 +15,8 @@ class EmployeesTest extends TestCase
     public function a_user_can_create_an_employee()
     {
         $this->actingAs(factory('App\User')->create());
+
+        $this->get('/employees/create')->assertStatus(200);
 
         $attributes = [
             'first_name' => $this->faker->firstNameFemale,
@@ -51,15 +53,22 @@ class EmployeesTest extends TestCase
     }
 
     /** @test */
-    public function only_authenticated_users_can_create_employees()
+    public function guests_cannot_manage_employees()
     {
-        $attributes = factory('App\Employee')->raw();
-        $this->post('/employees', $attributes)->assertRedirect('login');
+        $employee = factory('App\Employee')->create();
+
+        $this->get('/employees')->assertRedirect('login');
+        $this->get('/employees/create')->assertRedirect('login');
+        $this->get($employee->path())->assertRedirect('login');
+        $this->post('/employees', $employee->toArray())->assertRedirect('login');
     }
+
 
     /** @test */
     public function a_user_can_view_an_employee()
     {
+        $this->actingAs(factory('App\User')->create());
+
         $employee = factory('App\Employee')->create();
 
         $this->get($employee->path())

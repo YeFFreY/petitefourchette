@@ -19,6 +19,11 @@ class EmployeesController extends Controller
         return view('employees.show', compact('employee'));
     }
 
+    public function create()
+    {
+        return view('employees.create');
+    }
+
     public function store()
     {
         $attributes = request()->validate([
