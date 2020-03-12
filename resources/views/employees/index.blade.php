@@ -6,14 +6,15 @@
       <h1>Employees</h1>
       <a href="/employees/create" class="btn btn-secondary">New Employee</a>
     </div>
-    <ul>
       @forelse ($employees as $employee)
-        <li>
-          <a href="{{ $employee->path() }}">{{$employee->first_name}} {{$employee->last_name}}</a>
-        </li>
+        <div class="card mb-2" >
+          <div class="card-body">
+            <h5 class="card-title"><a href="{{ $employee->path() }}">{{$employee->first_name}} {{$employee->last_name}}</a></h5>
+            <p class="card-text">{{ $employee-> email }}</p>
+          </div>
+        </div>
       @empty
-        <li>No employees yet.</li>
+        <p>No employees yet.</p>
       @endforelse
-    </ul>
   </div>
 @endsection
