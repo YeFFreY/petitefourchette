@@ -29,6 +29,23 @@ class EmployeesController extends Controller
         return view('employees.edit', compact('employee'));
     }
 
+    public function update(Employee $employee)
+    {
+        $attributes = request()->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone_number' => '',
+            'address' => '',
+            'start_date' => 'required',
+            'end_date' => ''
+        ]);
+
+        $employee->update($attributes);
+
+        return redirect($employee->path());
+    }
+
     public function store()
     {
         $attributes = request()->validate([

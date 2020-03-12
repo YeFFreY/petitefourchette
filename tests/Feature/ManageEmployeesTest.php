@@ -16,7 +16,7 @@ class ManageEmployeesTest extends TestCase
     {
         $this->actingAs(factory('App\User')->create());
 
-        $this->get('/employees/create')->assertStatus(200);
+        $this->get('/employees/create')->assertOk();
 
         $attributes = [
             'first_name' => $this->faker->firstNameFemale,
@@ -35,6 +35,22 @@ class ManageEmployeesTest extends TestCase
         $this->get('/employees')
             ->assertSee($attributes['first_name'])
             ->assertSee($attributes['last_name']);
+    }
+
+    /** @test */
+    public function a_user_can_update_an_employee()
+    {
+        $this->withoutExceptionHandling();
+        $employee = factory('App\Employee')->create();
+
+        $this->actingAs(factory('App\User')->create());
+
+        $this->get($employee->path().'/edit')->assertOk();
+
+        $this->patch($employee->path(), $attributes = ['first_name' => 'Changed', 'last_name' => 'Changed', 'email' => 'Changed@Email.com', 'start_date' => $this->faker->date()])
+             ->assertRedirect($employee->path());
+        
+        $this->assertDatabaseHas('employees', $attributes);
     }
 
     /** @test */
@@ -59,6 +75,7 @@ class ManageEmployeesTest extends TestCase
 
         $this->get('/employees')->assertRedirect('login');
         $this->get('/employees/create')->assertRedirect('login');
+        $this->get($employee->path().'edit')->assertRedirect('login');
         $this->get($employee->path())->assertRedirect('login');
         $this->post('/employees', $employee->toArray())->assertRedirect('login');
     }
