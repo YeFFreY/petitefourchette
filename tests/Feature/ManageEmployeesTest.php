@@ -47,8 +47,13 @@ class ManageEmployeesTest extends TestCase
 
         $this->get($employee->path().'/edit')->assertOk();
 
-        $this->patch($employee->path(), $attributes = ['first_name' => 'Changed', 'last_name' => 'Changed', 'email' => 'Changed@Email.com', 'start_date' => $this->faker->date()])
-             ->assertRedirect($employee->path());
+        $this->patch($employee->path(), $attributes = [
+            'first_name' => 'Changed',
+            'last_name' => 'Changed',
+            'email' => 'Changed@Email.com',
+            'start_date' => $this->faker->date()
+            ]
+            )->assertRedirect($employee->path());
         
         $this->assertDatabaseHas('employees', $attributes);
     }

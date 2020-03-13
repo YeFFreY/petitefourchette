@@ -1,12 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="container">
-    <div class="d-flex align-items-center justify-content-between">
-      <h1>Edit employee details</h1>
-    </div>
-    <div>
-      <p>the form</p>
-    </div>
-  </div>
+<div class="container">
+  <h1>Edit employee</h1>
+
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+  </div><br />
+@endif
+
+<form method="POST" action="{{ $employee->path() }}">
+  @method('PATCH')
+
+  @include('employees.form', [
+    'buttonText' => 'Update Employee'
+  ])
+
+</form>
+</div>
+
 @endsection
+  
