@@ -31,15 +31,7 @@ class EmployeesController extends Controller
 
     public function update(Employee $employee)
     {
-        $attributes = request()->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'phone_number' => '',
-            'address' => '',
-            'start_date' => 'required',
-            'end_date' => ''
-        ]);
+        $attributes = $this->validateRequest();
 
         $employee->update($attributes);
 
@@ -48,7 +40,18 @@ class EmployeesController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate([
+        $attributes = $this->validateRequest();
+
+        $attributes['created_by'] = auth()->id();
+
+        Employee::create($attributes);
+
+        return redirect('/employees')->with('success', 'Employee saved!');
+    }
+
+    protected function validateRequest()
+    {
+        return request()->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
@@ -57,11 +60,5 @@ class EmployeesController extends Controller
             'start_date' => 'required',
             'end_date' => ''
         ]);
-
-        $attributes['created_by'] = auth()->id();
-
-        Employee::create($attributes);
-
-        return redirect('/employees')->with('success', 'Employee saved!');
     }
 }
