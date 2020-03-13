@@ -57,8 +57,8 @@ class EmployeesController extends Controller
             'email' => 'required',
             'phone_number' => '',
             'address' => '',
-            'start_date' => 'required',
-            'end_date' => ''
+            'start_date' => 'date|required',
+            'end_date' => 'date'
         ]);
     }
 }
