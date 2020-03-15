@@ -26,4 +26,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('employees', 'EmployeesController');
     Route::resource('equipments', 'EquipmentsController');
+
+    Route::post('employees/{employee}/evaluations', 'EmployeeEvaluationsController@store');
+    Route::get('employees/{employee}/evaluations/create', 'EmployeeEvaluationsController@create');
+    Route::delete('evaluations/{evaluation}', 'EmployeeEvaluationsController@destroy');
 });

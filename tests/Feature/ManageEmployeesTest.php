@@ -14,7 +14,7 @@ class ManageEmployeesTest extends TestCase
     /** @test */
     public function a_user_can_create_an_employee()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $this->get('/employees/create')->assertOk();
 
@@ -40,10 +40,9 @@ class ManageEmployeesTest extends TestCase
     /** @test */
     public function a_user_can_update_an_employee()
     {
-        $this->withoutExceptionHandling();
         $employee = factory('App\Employee')->create();
 
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $this->get($employee->path().'/edit')->assertOk();
 
@@ -61,7 +60,7 @@ class ManageEmployeesTest extends TestCase
     /** @test */
     public function an_employee_requires_a_firstname_lastname_email_and_startDate()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $attributes = factory('App\Employee')->raw([
             'first_name' => '',
@@ -89,7 +88,7 @@ class ManageEmployeesTest extends TestCase
     /** @test */
     public function a_user_can_view_an_employee()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $employee = factory('App\Employee')->create();
 

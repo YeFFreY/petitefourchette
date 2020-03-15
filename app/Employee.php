@@ -13,4 +13,14 @@ class Employee extends Model
     {
         return "/employees/{$this->id}";
     }
+
+    public function evaluations()
+    {
+        return $this->hasMany(EmployeeEvaluation::class);
+    }
+
+    public function addEvaluation($body)
+    {
+        return $this->evaluations()->create(compact('body'));
+    }
 }

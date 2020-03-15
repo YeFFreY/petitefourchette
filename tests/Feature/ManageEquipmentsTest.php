@@ -13,7 +13,7 @@ class ManageEquipmentsTest extends TestCase
     /** @test */
     public function a_user_can_create_an_equipment()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $this->get('/equipments/create')->assertOk();
 
@@ -34,10 +34,9 @@ class ManageEquipmentsTest extends TestCase
     /** @test */
     public function a_user_can_update_an_equipment()
     {
-        $this->withoutExceptionHandling();
         $equipment = factory('App\Equipment')->create();
 
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $this->get($equipment->path().'/edit')->assertOk();
 
@@ -53,7 +52,7 @@ class ManageEquipmentsTest extends TestCase
     /** @test */
     public function an_equipment_requires_a_name_and_reference()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $attributes = factory('App\Equipment')->raw([
             'name' => '',
@@ -79,7 +78,7 @@ class ManageEquipmentsTest extends TestCase
     /** @test */
     public function a_user_can_view_an_equipment()
     {
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $equipment = factory('App\Equipment')->create();
 
