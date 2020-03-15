@@ -10,7 +10,7 @@
         <div class="card mb-2" >
           <div class="card-body">
             <h5 class="card-title"><a href="{{ $employee->path() }}">{{$employee->first_name}} {{$employee->last_name}}</a></h5>
-            <p class="card-text">{{ $employee-> email }}</p>
+            <p class="card-text">{{ $employee->email }}</p>
           </div>
         </div>
       @empty

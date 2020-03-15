@@ -6,7 +6,7 @@
       <h1>{{ $employee->first_name }} {{ $employee->last_name }}</h1>
       <div>
         <a href="{{ route('employees.edit',$employee->id) }}" class="btn btn-outline-primary">Edit</a>
-        <a href="/employees" class="btn btn-secondary">Go Back</a>
+        <a href="/employees" class="btn btn-secondary">Employees List</a>
       </div>
     </div>
     <div class="form-group">

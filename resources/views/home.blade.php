@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-6 d-flex flex-column">
                             <a href="/employees" class="btn btn-primary btn-lg m-2">Employes</a>
-                            <a href="" class="btn btn-primary btn-lg m-2">Parametres</a>
+                            <a href="/equipments" class="btn btn-primary btn-lg m-2">Equipments</a>
                         </div>
                     </div>
                     
