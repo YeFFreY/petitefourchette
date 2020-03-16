@@ -55,24 +55,25 @@ class EmployeeEvaluationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(EmployeeEvaluation $evaluation)
     {
-        //
+        return view('employees.evaluations.edit', compact('evaluation'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeEvaluation $evaluation)
     {
-        //
+        $attributes = $this->validateRequest();
+
+        $evaluation->update($attributes);
+
+        return redirect($evaluation->employee->path());
     }
 
     /**

@@ -50,11 +50,14 @@
       <div class="card mb-2">
         <div class="card-body">
           <div class="card-text">{{ $evaluation->body }}</div>
-          <form method="POST" action="{{ $evaluation->path() }}" class="d-flex justify-content-end">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-          </form>
+          <div class="d-flex justify-content-end">
+            <a href="{{ $evaluation->path() . '/edit' }}" class="btn btn-outline-secondary btn-sm mr-2">Edit</a>
+            <form method="POST" action="{{ $evaluation->path() }}" class="d-flex justify-content-end">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     @empty

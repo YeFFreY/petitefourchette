@@ -33,6 +33,27 @@ class EmployeeEvaluationsTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_update_an_employee_evaluation()
+    {
+        $this->withoutExceptionHandling();
+        $employee = factory('App\Employee')->create();
+        $evaluation = $employee->addEvaluation('Some evaluation body');
+
+        $this->signIn();
+
+        $this->get($evaluation->path() . '/edit')->assertOk();
+
+        $this->patch(
+            $evaluation->path(),
+            $attributes = [
+                'body' => 'Changed'
+            ]
+        )->assertRedirect($employee->path());
+
+        $this->assertDatabaseHas('employee_evaluations', $attributes);
+    }
+
+    /** @test */
     public function an_evaluation_requires_a_body()
     {
         $this->signIn();

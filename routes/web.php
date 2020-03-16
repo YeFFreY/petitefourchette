@@ -30,4 +30,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('employees/{employee}/evaluations', 'EmployeeEvaluationsController@store');
     Route::get('employees/{employee}/evaluations/create', 'EmployeeEvaluationsController@create');
     Route::delete('evaluations/{evaluation}', 'EmployeeEvaluationsController@destroy');
+    Route::get('evaluations/{evaluation}/edit', 'EmployeeEvaluationsController@edit');
+    Route::patch('evaluations/{evaluation}', 'EmployeeEvaluationsController@update');
 });
