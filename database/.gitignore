@@ -1,2 +1,3 @@
-*.sqlite
+#for now we'll push the file until using a real database
+# *.sqlite
 *.sqlite-journal
