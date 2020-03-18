@@ -15,7 +15,7 @@
                     @endif
                     <div class="row">
                         <div class="col-md-6 d-flex flex-column">
-                            <a href="" class="btn btn-primary btn-lg m-2">Restaurant</a>
+                            <a href="/cashbooks" class="btn btn-primary btn-lg m-2">Restaurant</a>
                             <a href="" class="btn btn-primary btn-lg m-2">Traiteur</a>
                             <a href="" class="btn btn-primary btn-lg m-2">Livraison</a>
                             <a href="" class="btn btn-primary btn-lg m-2">Statistiques</a>
