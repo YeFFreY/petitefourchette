@@ -2,52 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\CashBook;
 use App\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CashBook $cashbook)
     {
-        //
+        $attributes = $this->validateRequest();
+
+        if( $attributes['type'] == 'INCOME') {
+            $cashbook->addIncome($attributes['description'], $attributes['amount']);
+        } else if ( $attributes['type'] == 'EXPENSE') {
+            $cashbook->addExpense($attributes['description'], $attributes['amount']);
+        } 
+        return redirect($cashbook->path());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -81,5 +59,15 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    
+    protected function validateRequest()
+    {
+        return request()->validate([
+            'type' => 'required',
+            'description' => 'required',
+            'amount' => 'required|numeric'
+        ]);
     }
 }

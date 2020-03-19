@@ -75,13 +75,14 @@ class ManageCashbooksTest extends TestCase
         $response = $this->get($cashbook->path());
         $response
             ->assertSee($cashbook->service_id)
-            ->assertSee($cashbook->start_at->format('Y-m-d H:00'));
+            ->assertSee($cashbook->start_at->format('H:00'))
+            ->assertSee($cashbook->start_at->format('Y-m-d'));
 
          foreach($cashbook->transactions as $transaction ) {
             $response->assertSee($transaction->amount);
         }
-        $response->assertSee($cashbook->totalIncomes());
-        $response->assertSee($cashbook->totalExpenses());
-        $response->assertSee($cashbook->balance());
+        $response->assertSee(number_format($cashbook->totalIncomes(),2, ',', '.'));
+        $response->assertSee(number_format($cashbook->totalExpenses(),2, ',', '.'));
+        $response->assertSee(number_format($cashbook->balance(),2, ',', '.'));
     }
 }
