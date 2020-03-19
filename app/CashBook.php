@@ -25,9 +25,30 @@ class CashBook extends Model
         return $this->transactions()->where('type', 'INCOME')->get();
     }
 
+    public function totalIncomes()
+    {
+        return $this->transactions()->where('type', 'INCOME')->sum('amount');
+    }
+
     public function expenses()
     {
         return $this->transactions()->where('type', 'EXPENSE')->get();
+    }
+
+    public function totalExpenses()
+    {
+        return $this->transactions()->where('type', 'EXPENSE')->sum('amount');
+    }
+
+    public function balance()
+    {
+        return $this->transactions()->get()->reduce(function ($carry, $item) {
+            if ($item->type == 'INCOME'){
+                return $carry + $item->amount;
+            } else {
+                return $carry - $item->amount;
+            }
+        }, 0);
     }
 
     public function addIncome($description, $amount)

@@ -80,5 +80,8 @@ class ManageCashbooksTest extends TestCase
          foreach($cashbook->transactions as $transaction ) {
             $response->assertSee($transaction->amount);
         }
+        $response->assertSee($cashbook->totalIncomes());
+        $response->assertSee($cashbook->totalExpenses());
+        $response->assertSee($cashbook->balance());
     }
 }

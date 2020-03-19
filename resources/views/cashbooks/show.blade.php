@@ -38,7 +38,7 @@
         </tbody>
       </table>
       <div>
-        <div>Total: XXX €</div>
+        <div>Total: {{ $cashbook->totalIncomes() }} €</div>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
           @endforelse
       </table>
       <div>
-        <div>Total: XXX €</div>
+        <div>Total: {{ $cashbook->totalExpenses() }} €</div>
       </div>
 
     </div>
@@ -79,7 +79,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="d-flex justify-content-between align-items-center p-4 shadow rounded">
-        <div>Current Balance : XXX €</div>
+        <div>Current Balance :{{ $cashbook->balance() }} €</div>
         <a href="" class="btn btn-danger btn-lg">Close</a>
       </div>
     </div>
