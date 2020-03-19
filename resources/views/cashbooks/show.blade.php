@@ -5,7 +5,7 @@
   <div class="d-flex align-items-center justify-content-between mb-2">
     <div>
       <h1 class="mb-0">{{$cashbook->start_at->format('Y-m-d')}}</h1>
-      <p class="lead">Service started at {{$cashbook->start_at->format('H:00')}} ({{$cashbook->service_id}})</p>
+      <p class="lead">Service started at {{$cashbook->start_at->format('H:i')}} ({{$cashbook->service_id}})</p>
     </div>
     
     <div>
@@ -31,7 +31,7 @@
           @forelse ($cashbook->incomes() as $income)
           <tr class="d-flex">
             <td class="col-6">{{ $income->description }}</td>
-            <td class="col-2">{{ $income->created_at }}</td>
+            <td class="col-2">{{ $income->created_at->format('H:i') }}</td>
             <td class="col-2">{{ number_format($income->amount,2, ',', '.') }} €</td>
             <td class="col-2">
               <a href="" class="btn btn-outline-secondary btn-sm">Edit</a>
@@ -75,7 +75,7 @@
           @forelse ($cashbook->expenses() as $expense)
           <tr>
             <td class="col-6">{{ $expense->description }}</td>
-            <td class="col-2">{{ $expense->created_at }}</td>
+            <td class="col-2">{{ $expense->created_at->format('H:i') }}</td>
             <td class="col-2">{{ number_format($expense->amount,2, ',', '.') }} €</td>
             <td class="col-2">
               <a href="" class="btn btn-outline-secondary btn-sm">Edit</a>
@@ -102,7 +102,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="d-flex justify-content-between align-items-center p-4 shadow rounded">
-        <div class="h2 text-info mb-0">Current Balance : {{ number_format($cashbook->balance(),2, ',', '.') }} €</div>
+        <div class="h2 mb-0">Current Balance : <span class="{{$cashbook->balance() < 0 ? 'text-danger' : 'text-success'}}">{{ number_format($cashbook->balance(),2, ',', '.') }} €</span></div>
         <a href="" class="btn btn-danger btn-lg">Close</a>
       </div>
     </div>

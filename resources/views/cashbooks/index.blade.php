@@ -6,18 +6,31 @@
       <h1>Caisses</h1>
       <a href="/cashbooks/create" class="btn btn-secondary">Start Caisse</a>
     </div>
-      @forelse ($cashbooks as $cashbook)
-        <div class="card mb-2" >
-          <div class="card-body">
-            <h5 class="card-title"><a href="{{ $cashbook->path() }}">{{$cashbook->start_at->format('Y-m-d H:00')}} <small>Service : {{$cashbook->service_id}}</small></a></h5>
-            <div class="card-text">
-              <p>Start balance : Not implemented</p>
-              <p>End balance : Not implemented</p>
-            </div>
-          </div>
-        </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Started at</th>
+          <th>Ended at</th>
+          <th>Service</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+      @forelse ($cashbooks->sortByDesc('start_at') as $cashbook)
+      <tr>
+        <td><a href="{{ $cashbook->path() }}">{{$cashbook->start_at->format('Y-m-d')}}</a></td>
+        <td>{{$cashbook->start_at->format('H:i')}}</td>
+        <td>{{optional($cashbook->end_at)->format('H:i')}}</td>
+        <td>{{$cashbook->service_id}}</td>
+      <td class="{{$cashbook->balance() < 0 ? 'text-danger' : 'text-success'}}">{{number_format($cashbook->balance(),2, ',', '.')}} €</td>
+      </tr>
       @empty
-        <p>No caisses yet.</p>
+        <tr>
+          <td colspan="5">No caisses yet.</td>
+        </tr>
       @endforelse
+    </tbody>
+    </table>
   </div>
 @endsection

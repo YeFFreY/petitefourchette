@@ -49,7 +49,7 @@ class CashBookController extends Controller
         $cashbook = CashBook::create($attributes);
         $cashbook->addIncome('Initial Balance', $attributes['initial_balance']);
 
-        return redirect('/cashbooks')->with('success', 'caisse saved!');
+        return redirect($cashbook->path())->with('success', 'caisse saved!');
     }
 
     /**

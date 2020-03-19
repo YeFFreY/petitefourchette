@@ -34,8 +34,10 @@ class ManageCashbooksTest extends TestCase
             'amount' => $attributes['initial_balance']
         ]);
 
-        $this->get('/cashbooks')
-            ->assertSee($attributes['service_id']);
+        $cashbook = CashBook::first();
+        $this->get($cashbook->path())
+            ->assertSee($attributes['service_id'])
+            ->assertSee(number_format($attributes['initial_balance'],2, ',', '.'));
     }
 
     /** @test */
@@ -75,7 +77,7 @@ class ManageCashbooksTest extends TestCase
         $response = $this->get($cashbook->path());
         $response
             ->assertSee($cashbook->service_id)
-            ->assertSee($cashbook->start_at->format('H:00'))
+            ->assertSee($cashbook->start_at->format('H:i'))
             ->assertSee($cashbook->start_at->format('Y-m-d'));
 
          foreach($cashbook->transactions as $transaction ) {
