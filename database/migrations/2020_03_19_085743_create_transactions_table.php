@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeEvaluationsTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateEmployeeEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_evaluations', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('employee_id');
-            $table->text('body');
+            $table->unsignedInteger('cash_book_id');
+            $table ->string('type', 50);
+            $table ->string('description', 500);
+            $table ->decimal('amount', 8, 2);
             $table->timestamps();
 
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('cash_book_id')->references('id')->on('cash_books');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateEmployeeEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_evaluations');
+        Schema::dropIfExists('transactions');
     }
 }

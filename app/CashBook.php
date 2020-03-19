@@ -15,4 +15,39 @@ class CashBook extends Model
         return "/cashbooks/{$this->id}";
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function incomes()
+    {
+        return $this->transactions()->where('type', 'INCOME')->get();
+    }
+
+    public function expenses()
+    {
+        return $this->transactions()->where('type', 'EXPENSE')->get();
+    }
+
+    public function addIncome($description, $amount)
+    {
+        return $this->addTransaction('INCOME', $description, $amount);
+    }
+
+    public function addExpense($description, $amount)
+    {
+        return $this->addTransaction('EXPENSE', $description, $amount);
+    }
+
+    private function addTransaction($type, $description, $amount)
+    {
+        $transaction = new Transaction([
+            'type' => $type,
+            'description' => $description,
+            'amount' => $amount
+        ]);
+
+        return $this->transactions()->save($transaction);
+    }
 }

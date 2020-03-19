@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CashBook;
+use App\Http\Requests\StartCashbook;
+use App\Transaction;
 use Illuminate\Http\Request;
 
 class CashBookController extends Controller
@@ -37,14 +39,15 @@ class CashBookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StartCashbook $startCashbookRequest)
     {
-        $attributes = $this->validateRequest();
+        $attributes = $startCashbookRequest->validated();
 
         $attributes['created_by'] = auth()->id();
         $attributes['start_at'] = now();
 
-        CashBook::create($attributes);
+        $cashbook = CashBook::create($attributes);
+        $cashbook->addIncome('Initial Balance', $attributes['initial_balance']);
 
         return redirect('/cashbooks')->with('success', 'caisse saved!');
     }

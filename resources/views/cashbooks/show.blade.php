@@ -24,15 +24,21 @@
           </tr>
         </thead>
         <tbody>
+          @forelse ($cashbook->incomes() as $income)
           <tr>
-            <td>Starting Balance</td>
-            <td>15:00</td>
-            <td>1500 €</td>
+            <td>{{ $income->description }}</td>
+            <td>{{ $income->created_at }}</td>
+            <td>{{ $income->amount }}</td>
           </tr>
+          @empty
+          <tr>
+            <td colspan="3">No incomes</td>
+          </tr>
+          @endforelse
         </tbody>
       </table>
       <div>
-        <div>Total: 1500€</div>
+        <div>Total: XXX €</div>
       </div>
     </div>
   </div>
@@ -52,15 +58,20 @@
           </tr>
         </thead>
         <tbody>
+          @forelse ($cashbook->expenses() as $expense)
           <tr>
-            <td>Avances Personnel</td>
-            <td>16:00</td>
-            <td>500 €</td>
+            <td>{{ $expense->description }}</td>
+            <td>{{ $expense->created_at }}</td>
+            <td>{{ $expense->amount }}</td>
           </tr>
-        </tbody>
+          @empty
+          <tr>
+            <td colspan="3">No expenses</td>
+          </tr>
+          @endforelse
       </table>
       <div>
-        <div>Total: 500€</div>
+        <div>Total: XXX €</div>
       </div>
 
     </div>
@@ -68,7 +79,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="d-flex justify-content-between align-items-center p-4 shadow rounded">
-        <div>Current Balance : 1000€</div>
+        <div>Current Balance : XXX €</div>
         <a href="" class="btn btn-danger btn-lg">Close</a>
       </div>
     </div>
