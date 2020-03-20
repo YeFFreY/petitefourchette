@@ -18,7 +18,13 @@
     </div>
     <div class="p-2">
       <label for="amount">Amount</label>
-      <input type="text" name="amount" id="amount" class="form-control" required>
+      <div class="input-group">
+        <input type="text" name="amount" id="amount" class="form-control" required>
+        <div class="input-group-append">
+          <span class="input-group-text">€</span>
+        </div>
+      </div>
+      
     </div>
     <div class="p-2 align-self-end">
     <button type="submit" class="btn {{$type == 'INCOME' ? 'btn-outline-success' : 'btn-outline-danger'}}">{{ $buttonText }}</button>
